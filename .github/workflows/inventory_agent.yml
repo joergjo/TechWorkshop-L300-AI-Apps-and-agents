@@ -1,4 +1,4 @@
-name: Cart Agent Deployment
+name: Inventory Agent Deployment
 
 on:
   push:
