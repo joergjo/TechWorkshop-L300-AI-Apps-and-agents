@@ -3,7 +3,7 @@ name: Cart Agent Deployment
 on:
   push:
     paths:
-      - 'src/app/agents/interiorDesignAgent_initializer.py'
+      - 'src/app/agents/inventoryAgent_initializer.py'
       - 'src/app/agents/agent_processor.py'
       - 'src/prompts/InventoryAgentPrompt.txt'
       - '.github/workflows/inventory_agent.yml'
