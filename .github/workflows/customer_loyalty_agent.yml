@@ -17,6 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create .env file from secret
+        run: 'echo "$ENV" > src/.env'
+        shell: bash
+        env:
+          ENV: ${{ secrets.ENV }}
+
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -30,10 +36,6 @@ jobs:
       - name: Install dependencies with uv
         run: |
           uv pip install --system -r src/requirements.txt
-
-      - name: Generate .env from GitHub secret
-        run: |
-          echo "${{ secrets.ENV }}" > src/.env
 
       - name: Azure Login
         uses: azure/login@v2
