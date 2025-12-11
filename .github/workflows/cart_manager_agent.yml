@@ -3,7 +3,7 @@ name: Cart Agent Deployment
 on:
   push:
     paths:
-      - 'src/app/agents/cartManagerAgent_initializer.py.py'
+      - 'src/app/agents/cartManagerAgent_initializer.py'
       - 'src/prompts/CartManagerPrompt.txt'
       - '.github/workflows/cart_manager_agent.yml'
   workflow_dispatch:
