@@ -1,0 +1,45 @@
+name: Customer Loyalty Agent Deployment
+
+on:
+  push:
+    paths:
+      - 'src/app/agents/customerLoyaltyAgent_initializer.py'
+      - 'src/prompts/CustomerLoyaltyAgentPrompt.txt'
+      - 'src/app/tools/discountLogic.py'
+      - '.github/workflows/customer_loyalty_agent.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies with uv
+        run: |
+          uv pip install --system -r src/requirements.txt
+
+      - name: Generate .env from GitHub secret
+        run: |
+          echo "${{ secrets.ENV }}" > src/.env
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Run Customer Loyalty Agent Initializer
+        run: |
+          python src/app/agents/customerLoyaltyAgent_initializer.py
