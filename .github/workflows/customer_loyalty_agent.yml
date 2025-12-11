@@ -23,9 +23,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install uv
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
 
       - name: Install dependencies with uv
         run: |
@@ -43,3 +43,5 @@ jobs:
       - name: Run Customer Loyalty Agent Initializer
         run: |
           python src/app/agents/customerLoyaltyAgent_initializer.py
+        env:
+          PYTHONUNBUFFERED: '1'
