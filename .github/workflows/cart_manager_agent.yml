@@ -1,4 +1,4 @@
-name: Customer Loyalty Agent Deployment
+name: Cart Agent Deployment
 
 on:
   push:
